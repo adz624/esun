@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.email    = ["eddie@visionbundles.com"]
   s.homepage = "https://github.com/afunction/esun"
 
-  s.files            = %w{.gitignore Rakefile Gemfile README.rdoc LICENSE esun.gemspec} + Dir['**/*.{rb,yml}']
+  s.files            = %w{Gemfile esun.gemspec} + Dir['**/*.{rb,yml}']
   s.test_files       = s.files.grep(%r{^(test|spec|locales)/})
   s.require_paths    = %w{lib}
 
