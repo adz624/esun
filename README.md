@@ -6,7 +6,7 @@
 1. 玉山 callback server 有 DNS Cache，如果 production 換 IP 網址沒換，一樣會送到到舊的 IP
 2. callback action 如果沒有回傳 `render_esun_ok` 就會連續 query 10 次
 
-##### 安裝 / 使用
+##### 安裝
 
 `gem 'esun'`
 
@@ -20,10 +20,23 @@
 ::Esun::ATM.company_code = '92837'
 ```
 
+
+##### 產生繳費代碼
+
+```
+order_id = 10
+amount = 1000
+expire = Date.today + 3.days
+::Esun::ATM.build_vaccount(order_id, amount, expire)
+```
+
+##### payment callbacks
+
 ```ruby
 # config/router.rb
 post "payment/esun"
 ```
+
 
 ```ruby
 # app/controllers/payment_controller.rb
