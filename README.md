@@ -14,6 +14,13 @@
 
 
 ```ruby
+# config/initializer/esun.rb
+::Esun::ATM.company_code = Setting.esun_company_code # settinglogic way
+# or
+::Esun::ATM.company_code = '92837'
+```
+
+```ruby
 # config/router.rb
 post "payment/esun"
 ```
@@ -21,24 +28,24 @@ post "payment/esun"
 ```ruby
 # app/controllers/payment_controller.rb
 class PaymentController < ActionController::Base
-include ::Esun::CallbackHelper
-add_allow_ip '192.168.3.10' # 增加玉山 server 以外的 ip to white list
-set_esun_callback_action :esun # 指定 esun callback action
+  include ::Esun::CallbackHelper
+  add_allow_ip '192.168.3.10' # 增加玉山 server 以外的 ip to white list
+  set_esun_callback_action :esun # 指定 esun callback action
 
-# POST /payment/esun
-def esun
-  payment_params.data       # 原始 post 過來的資料
+  # POST /payment/esun
+  def esun
+    payment_params.data       # 原始 post 過來的資料
 
-  payment_params.oid         # 訂單編號
-  payment_params.amount      # 金額
-  payment_params.pay_time    # 付款時間
-  payment_params.handle_date # 忘了是什麼?! 知道的人告訴我一下
+    payment_params.oid         # 訂單編號
+    payment_params.amount      # 金額
+    payment_params.pay_time    # 付款時間
+    payment_params.handle_date # 忘了是什麼?! 知道的人告訴我一下
 
-  # .... 你的 business logic
+    # .... 你的 business logic
 
-  # 回應 200 - OK
-  render_esun_ok
-end
+    # 回應 200 - OK
+    render_esun_ok
+  end
 end
 ```
 
